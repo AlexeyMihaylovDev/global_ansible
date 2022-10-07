@@ -13,8 +13,7 @@
         copy:
           src: "{{ source }}"
           dest: "{{ dest }}"
-          tags:
-          - dir_not_exist
+
           force: yes
           checksum:
         register: copy_out
@@ -28,5 +27,3 @@
         debug:
           msg: "Copy Successful!"
 
-      tags:
-        - checksum
