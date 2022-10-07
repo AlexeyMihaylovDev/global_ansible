@@ -1,0 +1,12 @@
+# copy_file.yml
+
+- name: copy files to destination
+  hosts: {{hosts}}
+  connection: local
+  tasks:
+    - name: copy file as file in the same dir 
+      copy:
+        src: {{source}}
+        dest: {{dest}}
+      tags:
+        - dir_not_exist

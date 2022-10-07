@@ -1,0 +1,32 @@
+- name: copy files to destination
+  hosts: {{hosts}}
+  connection: local
+  tasks:
+    - block:
+      - name: get properties of file
+        stat:
+          path: {{source}}
+          checksum_algorithm: sha1
+        register: src_info
+
+      - name: copy file to dest
+        copy:
+          src: {{source}}
+          dest: {{dest}}
+          tags:
+          - dir_not_exist
+          force: yes
+          checksum:
+        register: copy_out
+
+      - name: Fail if copy was a failure
+        fail:
+          msg: "Copy failed!"
+        when: src_info.stat.checksum != copy_out.checksum
+
+      - name: Print Copy successful
+        debug:
+          msg: "Copy Successful!"
+
+      tags:
+        - checksum
