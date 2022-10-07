@@ -1,0 +1,6 @@
+[UAT]
+server1 ansible_host=18.185.124.26
+[DEV]
+server1 ansible_host=18.185.124.26
+[PROD]
+server1 ansible_host=18.185.124.26
