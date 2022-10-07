@@ -1,4 +1,5 @@
 - name: copy files to destination
+  hosts: "{{ myhosts }}"
   connection: local
   tasks:
     - block:
