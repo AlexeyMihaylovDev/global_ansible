@@ -6,7 +6,7 @@
       - name: get properties of file
         stat:
           path: "{{ source }}"
-          checksum_algorithm: sha1
+          checksum:
         register: src_info
 
       - name: copy file to dest
