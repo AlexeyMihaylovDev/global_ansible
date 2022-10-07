@@ -1,18 +1,17 @@
 - name: copy files to destination
-  hosts: {{hosts}}
   connection: local
   tasks:
     - block:
       - name: get properties of file
         stat:
-          path: {{source}}
+          path: "{{ source }}"
           checksum_algorithm: sha1
         register: src_info
 
       - name: copy file to dest
         copy:
-          src: {{source}}
-          dest: {{dest}}
+          src: "{{ source }}"
+          dest: "{{ dest }}"
           tags:
           - dir_not_exist
           force: yes
