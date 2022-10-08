@@ -1,0 +1,12 @@
+- hosts: "{{ myhosts }}"
+  tasks:
+  - name: Ansible copy file force
+    copy:
+      src: "{{ source }}"
+      dest: "{{ dest }}" 
+      mode: '0644'                                                                                       
+      owner: root                                                                                        
+      group: root
+      force: yes
+    become: true
+        

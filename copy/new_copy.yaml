@@ -1,13 +1,12 @@
 - hosts: "{{ myhosts }}"
   tasks:
-    - name: Use sha1 to calculate the checksum
-      ansible.builtin.stat:
+    - name: get properties of file
+      stat:
         path: "{{ source }}"
-        checksum_algorithm: sha1
+        checksum: "sha1"
       register: src_info
-    - debug:
-       msg: "{{ src_info.stat.checksum }}" 
-       
+
+        
     - name: Ansible copy file force
       copy:
         src: "{{ source }}"
@@ -20,5 +19,3 @@
       register: copy_out
     - debug:
        msg: "{{ copy_out.checksum }}" 
-
- 
