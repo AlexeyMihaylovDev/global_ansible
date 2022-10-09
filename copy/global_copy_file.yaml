@@ -1,12 +1,12 @@
-# copy_file.yml
-
-- name: copy files to destination
-  hosts: "{{ hosts }}"
-  connection: local
+- hosts: "{{ myhosts }}"
   tasks:
-    - name: copy file as file in the same dir 
-      copy:
-        src: "{{ source }}"
-        dest: "{{ dest }}"
-      tags:
-        - dir_not_exist
+  - name: Ansible copy file force
+    copy:
+      src: "{{ source }}"
+      dest: "{{ dest }}" 
+      mode: '0644'                                                                                       
+      owner: root                                                                                        
+      group: root
+      force: yes
+    become: true
+        

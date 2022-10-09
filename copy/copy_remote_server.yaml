@@ -1,0 +1,34 @@
+- hosts: "{{ myhosts }}"  
+  connection: local
+  tasks:
+    - name: get properties of file
+      stat:
+        path: "{{ source }}"
+        checksum_algorithm: "sha1"
+        get_checksum: yes
+      register: src_info
+    - debug:
+       msg: "The checksum of the file is {{ src_info.stat.checksum }}" 
+- hosts: "{{ myhosts }}"   
+  connection: ssh  
+  tasks:       
+    - name: Ansible copy file force
+      copy:
+        src: "{{ source }}"
+        dest: "{{ dest }}" 
+        mode: '0644'                                                                                       
+        owner: root                                                                                        
+        group: root
+        force: yes
+      become: true
+      register: copy_out
+    - debug:
+       msg: "{{ copy_out.checksum }}" 	
+        
+    - name: Fail if copy was a failure
+      fail:
+        msg: "Copy failed!"
+      when: src_info.stat.checksum != copy_out.checksum
+    - name: Print Copy successful
+      debug:
+        msg: "Copy Successful!"   

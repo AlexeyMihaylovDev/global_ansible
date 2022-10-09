@@ -1,13 +1,7 @@
-- hosts: "{{ myhosts }}"
-  tasks:
-    - name: get properties of file
-      stat:
-        path: "{{ source }}"
-        checksum: "sha1"
-      register: src_info
-
-        
-    - name: Ansible copy file force
+- name: Ansible Copy Directory Example Local to Remote
+- hosts: "{{ myhosts }}"  
+  tasks:       
+    - name:  Copying the Directory's contents (sub directories/files)
       copy:
         src: "{{ source }}"
         dest: "{{ dest }}" 
@@ -17,5 +11,3 @@
         force: yes
       become: true
       register: copy_out
-    - debug:
-       msg: "{{ copy_out.checksum }}" 
